@@ -1,36 +1,31 @@
 package tombola;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class EstraiTombola extends Thread {
     //VERSIONE DUE MA CON QUALCHE RIPETIZIONE
     String nomePersona;
-
-    ArrayList <Integer> numeriEstratti=new ArrayList<>();
+    boolean [] numeriEstratti=new boolean[90];
 
     public void settaNomePersona(String nome) {
         nomePersona=nome;
     }
 
     public void aggNum(int i) {
-        numeriEstratti.add(i);
+        numeriEstratti[i]=true;
     }
 
-
-    public boolean contrNumEstratti(Integer num) {
-        for (Integer integer : numeriEstratti) {
-            if (integer.equals(num))
-                return false;
-        }
-        return true;
+    public boolean contrNumEstratti(int num) {
+        return numeriEstratti[num];
     }
+
 
     public void estraiNumero() {
         int temp;
         do {
             temp= (int) (Math.random()*90);
-        }while(!contrNumEstratti(temp));
+            System.out.println(contrNumEstratti(temp));
+        }while(contrNumEstratti(temp));
         System.out.println(nomePersona+" ha estratto: "+temp);
         aggNum(temp);
         try {
@@ -41,9 +36,9 @@ public class EstraiTombola extends Thread {
     }
 
     public void run() {
-        do {
+        for (int i=0;i<90;i++){
             estraiNumero();
-        } while (numeriEstratti.size() != 90);
+        }
     }
 
 }

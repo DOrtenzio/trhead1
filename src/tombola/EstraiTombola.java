@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class EstraiTombola extends Thread {
+    //VERSIONE DUE MA CON QUALCHE RIPETIZIONE
     String nomePersona;
 
-    static ArrayList <Integer> numeriEstratti=new ArrayList<>();
+    ArrayList <Integer> numeriEstratti=new ArrayList<>();
 
     public void settaNomePersona(String nome) {
         nomePersona=nome;
@@ -17,9 +18,9 @@ public class EstraiTombola extends Thread {
     }
 
 
-    public boolean contrNumEstratti(int num) {
-        for(int i=0;i<numeriEstratti.size();i++){
-            if (numeriEstratti.get(i) == num)
+    public boolean contrNumEstratti(Integer num) {
+        for (Integer integer : numeriEstratti) {
+            if (integer.equals(num))
                 return false;
         }
         return true;

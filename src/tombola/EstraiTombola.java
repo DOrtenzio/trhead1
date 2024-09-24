@@ -7,7 +7,7 @@ public class EstraiTombola extends Thread {
     //VERSIONE DUE MA CON QUALCHE RIPETIZIONE SOPRATTUTTO SUL SUSSEGUIRSI
     String nomePersona;
 
-    static ArrayList <Integer> numeriEstratti=new ArrayList<>();
+    public static ArrayList <Integer> numeriEstratti=new ArrayList<>();
 
     public void settaNomePersona(String nome) {
         nomePersona=nome;

@@ -4,30 +4,32 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class EstraiTombola extends Thread {
-    //VERSIONE DUE MA CON QUALCHE RIPETIZIONE SOPRATTUTTO SUL SUSSEGUIRSI
+    //VERSIONE DUE
     String nomePersona;
 
-    public static ArrayList <Integer> numeriEstratti=new ArrayList<>();
+    private static ArrayList <Integer> numeriDisponibili =new ArrayList<>();
 
-    public void settaNomePersona(String nome) {
+    public void setEstrazione(String nome) {
         nomePersona=nome;
     }
 
-    public void aggNum(int i) {
-        numeriEstratti.add(i);
+    public void popolaArray(){
+        for (int i=1;i<91;i++){ numeriDisponibili.add(i); }
     }
 
-    public boolean contrNumEstratti(Integer num) {
-        return !numeriEstratti.contains(num);
+    public void removNumero(int i) {
+        numeriDisponibili.remove(i);
     }
 
     public void estraiNumero() {
-        int temp;
-        do {
-            temp= (int) ((Math.random()*90)+1);
-        }while(!contrNumEstratti(temp));
-        System.out.println(nomePersona+" ha estratto: "+temp);
-        aggNum(temp);
+        int i= (int) (Math.random() * numeriDisponibili.size());
+        String s;
+        if (numeriDisponibili.isEmpty())
+            s="Numeri terminati.";
+        else
+            s=nomePersona+" ha estratto: "+numeriDisponibili.get(i)+" size: "+numeriDisponibili.size();
+        System.out.println(s);
+        removNumero(i);
         try {
             TimeUnit.SECONDS.sleep(1);
         }catch(Exception e) {
@@ -36,9 +38,6 @@ public class EstraiTombola extends Thread {
     }
 
     public void run() {
-        do {
-            estraiNumero();
-        } while (numeriEstratti.size() != 90);
+        while (true) estraiNumero();
     }
-
 }
